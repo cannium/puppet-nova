@@ -7,7 +7,8 @@ class nova::qpid(
   $user     = 'guest',
   $password = 'guest',
   $file     = '/var/lib/qpidd/qpidd.sasldb',
-  $realm    = 'OPENSTACK'
+  $realm    = 'OPENSTACK',
+  $clustered = false,
 ) {
 
   # only configure nova after the queue is up
@@ -30,6 +31,8 @@ class nova::qpid(
 
   class { 'qpid::server':
     service_ensure => $service_ensure
+    realm          => $realm
+    clustered      => $clustered
   }
 
 }
