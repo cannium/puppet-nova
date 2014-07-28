@@ -201,6 +201,7 @@ class nova(
   $sql_connection              = false,
   $sql_idle_timeout            = false,
   $logdir                      = false,
+  $nova_shell                  = '/bin/bash',
 ) inherits nova::params {
 
   # all nova_config resources should be applied
@@ -255,6 +256,8 @@ class nova(
     gid     => 'nova',
     system  => true,
     require => Package['nova-common'],
+    home    => '/var/lib/nova',
+    shell   => $nova_shell,
   }
 
   file { '/etc/nova/nova.conf':
